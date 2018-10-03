@@ -29,6 +29,12 @@ User.get(`/${id}`);
 
 This would map to a call to `BASE_URL/users/id`.
 
+## i18n
+
+This small repo also comes with localization built in. However, the way that I've approached implementing i18n is fairly different than most apps. Specifically, I've built in the ability to allow for whitelabeling the app, meaning that there could be multiple `messages` files for a given language. Through the use of an `env` var (`REACT_APP_BRAND`), you select which "brand" you'd like to use, which will affect which `messages` file should be loaded on app-load.
+
+Due to this constraint, I chose to use Alibaba's [react-intl-universal](https://github.com/alibaba/react-intl-universal) package, rather than the more popular [react-intl](https://github.com/yahoo/react-intl). Specifically, `react-intl-universal` utilizes a simple Singleton design pattern for accessing the messages, rather than using a HOC, which allowed for easier selecting of different messages files, and provides the flexibility to access the messages outside of React Components. Also, the resulting code is cleaner, as we don't need to wrap all components in `react-intl`'s HOC, nor wrap our entire application in their `IntlProvider`.
+
 ## Contribution
 
 This is meant to be a simple POC. If you have any comments or suggestions about iterating on this pattern, please feel free to open a GitHub issue.
